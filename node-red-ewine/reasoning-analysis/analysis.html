@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<!--
+  Copyright 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="analysis">
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-input-name" placeholder="name">
+	</div>
+	<div class="form-row">
+		<label for="node-input-analysis_type">analysis_type</label>
+		<select id="node-input-analysis_type" style="!important">
+			<option value="statistics">statistics</option>
+			<option value="regression">regression</option>
+		</select>
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="analysis">
+	<p>Analysis is TODO </p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('analysis',
+	{
+		category: 'Reasoning',
+		color: '#FDF0C2',
+		defaults:
+		{
+			analysis_type: {value: ""},
+			name: {value: "analysis"}
+		},
+		inputs:1,
+		outputs:3,
+		icon: "api.png",
+		label: function() { return this.name||"model"; },
+		labelStyle: function() { return this.name?"node_label_italic":""; }
+	});
+</script>

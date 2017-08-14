@@ -1,0 +1,90 @@
+<!--
+  Copyright 2013, 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="UPI_exec">
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-input-name" placeholder="name" data-i18n="[placeholder]common.label.name">
+		</div>
+	<div class="form-row">
+		<label for="node-input-host">Address</label>
+		<input type="text" id="node-input-host" placeholder="host address" style="width: 60%;" data-i18n="[placeholder]common.label.host">
+	</div>
+	<div class="form-row">
+		<label for="node-input-port">Port</label>
+		<input type="text" id="node-input-port" placeholder="port number" style="width: 120px;" data-i18n="[placeholder]common.label.port">
+	</div>
+	<div class="form-row">
+		<label for="node-input-timeout">Timeout</label>
+		<input type="text" id="node-input-timeout" placeholder="timeout (msec)" style="width: 120px;" data-i18n="[placeholder]common.label.timeout">
+	</div>
+	<div class="form-row">
+		<label for="node-input-retry">Retry</label>
+		<select id="node-input-retry" style="width:50px !important">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+		</select>
+	</div>
+	<div class="form-row">
+		<label for="node-input-reload_MAC">Reload MAC</label>
+		<input type="checkbox" id="node-input-reload_MAC" placeholder="reload_MAC" style="width: 65px;" data-i18n="[placeholder]common.label.reload_MAC">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="UPI_exec">
+	<p>UPI_exec is an interface used to communicate to multiple wireless nodes through a psuedo terminal multiplexer program. The multiplexer provides the service at a given <code>Address</code> and on a given <code>Port</code> which is configured on the edit page. On behalf of the client, the multiplexer sends requests to one or more nodes and replies back the responses. To handle response delays, <code>Timeout</code> and <code>Retry</code> variables are configured on the edit page. It is also possible to relaod the active radio program (<code> Reload MAC</code>) at the end of every execution.</p>
+	<p>The request itself is provided inside the <code>msg.payload</code> array of objects and it must contain the following elements</p>
+	<ul>
+		<li><code>ptsFile</code> - Device file descriptor of a node (e.g. <b>/dev/pts/23</b>)</li>
+		<li><code>opcode</code> - Operation code of the request. <b>0</b> for GET, <b>1</b> for SET and <b>2</b> for EVENT register operation</li>
+		<li><code>control_hdr</code> - an array of control header objects</li>
+		<li><code>control_hdr[c].uid</code> - unique identifier of the request @ control_hdr <b>c</b></li>
+		<li><code>control_hdr[c].type</code> - type of response/request value @ control_hdr <b>c</b></li>
+		<li><code>control_hdr[c].len</code> - size of response/request value @ control_hdr <b>c</b></li>
+		<li><code>control_hdr[c].value</code> - content of request value @ control_hdr <b>c</b></li>
+	</ul>
+	<p>Moreover, combined requests can be sent as one message and it is done in two ways. First, an array of <code>control_hdr</code> blocks is used to issue multiple requests to a single node. Second, different requests is send to multiple nodes by using array blocks inside <code>msg.payload</code>. In all the combined request types, responses are collected in one go.</p>
+	<p>An optional topic message, not used in the process, can be passed into the <code>msg.topic</code> variable for controlling next blocks on the flow.</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('UPI_exec',
+	{
+		category: 'miscellaneous',
+		color:"#E7E7AE",
+		defaults:
+		{
+			name: {value:""},
+			host: {value:"", validate: function(v) { return v.length > 0;} },
+			port: {value:"", required:true, validate:RED.validators.number()},
+			timeout: {value:"3000", required:true, validate:RED.validators.number()},
+			retry: {value:"3", required:true, validate:RED.validators.number()},
+			reload_MAC: {value: false, required:true }
+		},
+		inputs:1,
+		outputs:1,
+		icon: "api.png",
+		label: function()
+		{
+			return this.name || (this.host ? this.host : "") + (this.port ? ":" + this.port : "");
+		}	
+	});
+</script>

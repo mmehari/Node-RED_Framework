@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="optimization">
+	<div class="form-row">
+		<label for="node-input-outCol_Idx">outCol_Idx</label>
+		<input type="text" id="node-input-outCol_Idx" placeholder="Array of output column indexes">
+	</div>
+	<div class="form-row">
+		<label for="node-input-max_iter">max_iter</label>
+		<input type="text" id="node-input-max_iter" placeholder="Maximum number of iteration">
+	</div>
+	<div class="form-row">
+		<label for="node-input-HV_PoI_threshold">HV_PoI_thold</label>
+		<input type="text" id="node-input-HV_PoI_threshold" placeholder="Hyper Volume Probability of Improvement Threshold">
+	</div>
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-input-name" placeholder="name">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="optimization">
+	<p>This node implements a number of optimization blocks that are commonly used to solve engineering problems. These include Genetic algorithms, Particle Swarm Optimization, Simulated Annealing and Surrogate Modeling.</p>
+	<p>For the moment, surrogate model optimization is only implemented.</p>
+	<p>During surrogate model optimization, the system starts from an initial dataset (preferablly made using LHD) and iteratively progress to an optimum point/front until a stopping criteria is met.</p>
+	<p>Surrogate model optimization defines two stopping criterion: maximum iteration count and Hyper Volume Probability of Improvement (HV_PoI). In each iteration, the system checks an HV_PoI score and stops iteration when it lowers below <code>HV_PoI_thold</code>. If HV_PoI score is not low enough, the system iterates until it reaches <code>max_iter</code>.</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('optimization',
+	{
+		category: 'Reasoning',
+		color: '#FDF0C2',
+		defaults:
+		{
+			outCol_Idx: {value:"4,5,6", required:true},
+			max_iter: {value:"50", required:true, validate:RED.validators.number()},
+			HV_PoI_threshold: {value:"0.1", required:true},
+			name: {value:""}
+		},
+		inputs:1,
+		outputs:3,
+		icon: "api.png",
+		label: function() { return this.name||"optimization"; },
+		labelStyle: function() { return this.name?"node_label_italic":""; }
+	});
+</script>

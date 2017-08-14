@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="cooja">
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-input-name" placeholder="name">
+	</div>
+	<div class="form-row">
+		<label for="node-input-restart_cooja">restart_cooja</label>
+		<input type="checkbox" id="node-input-restart_cooja" placeholder="restart_cooja" style="width: 65px;" data-i18n="[placeholder]common.label.restart_cooja">
+	</div>
+	<div class="form-row">
+		<label for="node-input-debug">debug</label>
+		<input type="checkbox" id="node-input-debug" placeholder="debug" style="width: 65px;" data-i18n="[placeholder]common.label.debug">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="cooja">
+	<p><b>cooja</b> is a node-red application used to start the cooja network simulator from <a href='https://github.com/contiki-os/contiki'>contiki</a>. It first checks if cooja is running on the system and if it does, it either restarts it or leave it running depending on the status of the <code>restart</code> flag on the edit page.</p>
+	<p>Before starting the cooja simulator, two variables must be passed through the <code>msg.payload</code> object. These are <code>CONTIKI_DIR</code> indicating the absolute path of the CONTIKI directory and <code>csc_path_rel</code> indicating the relative path of the Cooja simulation file</p>
+	<p>An optional topic message, not used in the process, can be passed into the <code>msg.topic</code> variable for controlling next blocks on the flow.</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('cooja',
+	{
+		category: 'miscellaneous',
+		color: '#E7E7AE',
+		defaults:
+		{
+			name: {value:""},
+			restart_cooja: {value:true, required:true },
+			debug: {value:false, required:true }
+		},
+		inputs:1,
+		outputs:2,
+		icon: "api.png",
+		label: function() { return this.name||"cooja"; },
+		labelStyle: function() { return this.name?"node_label_italic":""; }
+	});
+</script>

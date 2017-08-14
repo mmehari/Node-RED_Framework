@@ -1,0 +1,30 @@
+{
+    "name"         : "ewine",
+    "version"      : "0.0.1",
+    "description"  : "Prototype front-end visualisation for ewine",
+    "dependencies": {
+    },
+    "keywords": [ "ewine" ],
+    "node-red"     : {
+        "nodes": {         
+         "planning-exhaustive-search": "planning-exhaustive-search/exhaustive.js",
+         "planning-file-search": "planning-file-search/file.js",
+         "planning-LA": "planning-LA/LA.js",
+         "planning-LHD": "planning-LHD/LHD.js",
+         "planning-random-search": "planning-random-search/random.js",
+
+         "reasoning-analysis": "reasoning-analysis/analysis.js",
+         "reasoning-model": "reasoning-model-creation/model.js",
+         "reasoning-optimization": "reasoning-optimization/optimization.js",
+         
+         "miscellaneous-cooja": "miscellaneous-cooja/cooja.js",
+         "miscellaneous-js2xml": "miscellaneous-js2xml/js2xml.js",
+         "miscellaneous-Mfile": "miscellaneous-Mfile/Mfile.js",
+         "miscellaneous-tcpClient": "miscellaneous-tcpClient/tcpClient.js",
+         "miscellaneous-UPI_exec": "miscellaneous-UPI_exec/UPI_exec.js",
+         "miscellaneous-split_WI": "miscellaneous-split_WI/split_WI.js"
+    	}
+    	
+     }
+}
+

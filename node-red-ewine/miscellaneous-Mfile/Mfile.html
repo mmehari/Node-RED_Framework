@@ -1,0 +1,121 @@
+<!--
+  Copyright 2013, 2014 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="Mfile_out">
+	<div class="form-row">
+		<label for="node-input-overwriteFile"><i class="fa fa-random"></i>Action</span></label>
+		<select type="text" id="node-input-overwriteFile" style="display: inline-block; width: 250px; vertical-align: top;">
+			<option value="false" data-i18n="file.action.append">append to file</option>
+			<option value="true" data-i18n="file.action.overwrite">overwrite file</option>
+		</select>
+	</div>
+	<div class="form-row" id="node-appline">
+		<label>&nbsp;</label>
+		<input type="checkbox" id="node-input-appendNewline" style="display: inline-block; width: auto; vertical-align: top;">
+		<label for="node-input-appendNewline" style="width: 70%;">Add newline (\n) to each payload?</label>
+	</div>
+	<div class="form-row">
+		<label for="node-input-name"><i class="fa fa-tag"></i>Name</span></label>
+		<input type="text" id="node-input-name">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="Mfile_out">
+	<p>Writes multiple messages to multiple files using an array of messages specified by <code>msg.payload</code>. Each array value is an object variable holding a message <code>msg.payload[*].payload</code> to be written to a file specified by <code>msg.payload[*].filename</code>.</p>
+	<p>A newline is added to every message. But this can be turned off if required, for example, to allow binary files to be written.</p>
+	<p>The default behaviour is to append to the file. This can be changed to overwrite the file each time, for example if you want to output a "static" web page or report.</p>
+</script>
+
+<script type="text/x-red" data-template-name="Mfile_in">
+	<div class="form-row">
+		<label for="node-input-format"><i class="fa fa-sign-out"></i>Output as</label>
+		<select id="node-input-format">
+			<option value="utf8" data-i18n="file.output.utf8">a utf8 string</option>
+			<option value="" data-i18n="file.output.buffer">a Buffer</option>
+		</select>
+	</div>
+	<div class="form-row">
+		<label for="node-input-name"><i class="fa fa-tag"></i>Name</span></label>
+		<input type="text" id="node-input-name">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="Mfile_in">
+    <p>Reads multiple files and sends an array of contents as <code>msg.payload[*].payload</code>, and filenames as <code>msg.payload[*].filename</code>.</p>
+    <p>The filenames must be send as an array of <code>msg.filenames[*]</code> on the incoming message.</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('Mfile_out',
+	{
+		category: 'miscellaneous',
+		defaults:
+		{
+			name: {value:""},
+			appendNewline: {value:true},
+			overwriteFile: {value:"false"}
+		},
+		color:"BurlyWood",
+		inputs:1,
+		outputs:1,
+		icon: "file.png",
+		align: "right",
+		label: function()
+		{
+			return this.name||"Mfile-out";
+		},
+		labelStyle: function()
+		{
+			return this.name?"node_label_italic":"";
+		},
+		oneditprepare: function()
+		{
+			$("#node-input-overwriteFile").on("change",function()
+			{
+				$("#node-appline").show();
+			});
+		}
+	});
+
+	RED.nodes.registerType('Mfile_in',
+	{
+		category: 'miscellaneous',
+		defaults:
+		{
+			name: {value:""},
+			format: {value: "utf8"}
+		},
+		color:"BurlyWood",
+		inputs:1,
+		outputs:1,
+		icon: "file.png",
+		label: function()
+		{
+			return this.name||"Mfile-out";
+		},
+		labelStyle: function()
+		{
+			return this.name?"node_label_italic":"";
+		},
+		oneditprepare: function()
+		{
+			$("#node-input-overwriteFile").on("change",function()
+			{
+				$("#node-appline").show();
+			});
+		}
+	});
+</script>

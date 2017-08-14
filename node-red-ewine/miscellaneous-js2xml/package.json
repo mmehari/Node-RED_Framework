@@ -1,0 +1,12 @@
+{
+  "name": "node-red-contrib-js2xml",
+  "version": "0.0.1",
+  "description": "JS object to XML converter",
+  "dependencies": {
+    "easyxml": "2.0.1"
+  },
+  "keywords": [
+    "node-red",
+    "xml"
+  ]
+}

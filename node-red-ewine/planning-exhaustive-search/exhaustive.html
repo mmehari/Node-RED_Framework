@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="exhaustive-search">
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-input-name" placeholder="name">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="exhaustive-search">
+	<p><b>exhaustive-search</b> is an exhaustive searching planner that is used to conduct experiments at each and every parameter combination of the design space. The design space is created using a Parameters Under Test (PUT) object variable and it has the following structure</p>
+	<ul>
+		<li><code>GROUPs</code> - Array of GROUPs of nodes </li>
+		<li><code>GROUPs[g]</code> - Array of nodes inside GROUP <b>g</b> </li>
+		<li><code>GROUPs[g][n].ptsFile</code> - Device file descriptor of node <b>n</b> inside GROUP <b>g</b> (e.g. <b>/dev/pts/23</b>)</li>
+		<li><code>control_hdr</code> - an array of control header objects</li>
+		<li><code>control_hdr[c].uid</code> - unique identifier of the request @ control_hdr <b>c</b></li>
+		<li><code>control_hdr[c].type</code> - type of request value @ control_hdr <b>c</b></li>
+		<li><code>control_hdr[c].len</code> - size of request value @ control_hdr <b>c</b></li>
+		<li><code>control_hdr[c].values</code> - array of request values @ control_hdr <b>c</b></li>
+	</ul>
+	<p>The planner is started by sending the topic <code>msg.topic</code>=<b>start_experiment</b> and continued on by passing the sample indexing number into <code>msg.sample_Idx</code> variable. At every iteration, the planner generates the topic <b>exploration</b> and at last the planner halts the iteration by generating the topic <b>planning_finished</b>.</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('exhaustive-search',
+	{
+		category: 'Exp_planning',
+		color: '#C7E9C0',
+		defaults:
+		{
+			name: {value:"exhaustive-search"}
+		},
+		inputs:1,
+		outputs:2,
+		icon: "api.png",
+		label: function() { return this.name||"exhaustive-search"; },
+		labelStyle: function() { return this.name?"node_label_italic":""; }
+	});
+</script>

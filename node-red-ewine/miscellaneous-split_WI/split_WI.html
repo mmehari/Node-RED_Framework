@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="split_WI">
+	<div class="form-row">
+		<label for="node-input-splt"><i class="fa fa-scissors"></i> Split</label>
+		<input type="text" id="node-input-splt" placeholder="character to split strings on : e.g. \n">
+	</div>
+	<div class="form-row">
+		<label for="node-input-typed-complete"><i class="fa fa-list"></i> Input</label>
+		<input id="node-input-typed-complete" type="text" style="width: 70%">
+		<input id="node-input-complete" type="hidden">
+	</div>
+	<div class="form-row">
+		<label for="node-input-intval"><i class="fa fa-clock-o"></i> Interval</label>
+		<input type="text" id="node-input-intval" placeholder="interval in milliseconds : e.g. \n">
+	</div>
+	<div class="form-row">
+		<label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+		<input type="text" id="node-input-name" placeholder="name">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="split_WI">
+	<p>A function that splits <code>msg.*</code> into multiple messages.</p>
+	<p>The behaviour is determined by the type of <code>msg.*</code>:</p>
+	<ul>
+		<li><b>string</b> - a message is sent for each part of the string after it is split using the specified character, by default a newline (<code>\n</code>).
+		<li><b>array</b> - a message is sent for each element of the array</li>
+		<li><b>object</b> - a message is sent for each key/value pair of the object.</li>
+	</ul>
+	<p>This is a modified version of the original split node. </p>
+	<ol type="1">
+		<li>It adds an interval parameter and send splited messages on fixed intervals </li>
+		<li>By default, the content inside <code>msg.payload</code> is splited but this version adds the option to split <code>msg.*</code></li>
+	</ol>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('split_WI',
+	{
+		category: 'miscellaneous',
+		color:"#E2D96E",
+		defaults:
+		{
+			name: {value:""},
+			complete: {value:"false", required:true},
+			splt: {value:"\\n"},
+			intval: {value:"50", required:true, validate:RED.validators.number()}
+		},
+		inputs:1,
+		outputs:1,
+		icon: "split.png",
+		label: function() { return this.name||"split_WI"; },
+		labelStyle: function() { return this.name?"node_label_italic":""; },
+		oneditprepare: function()
+		{
+			$("#node-input-typed-complete").typedInput({types:['msg', {value: "full", label: "complete msg object" , hasValue: false}]});
+			if (this.complete === "true" || this.complete === true)
+			{
+				// show complete message object
+				$("#node-input-typed-complete").typedInput('type','full');
+			}
+			else
+			{
+				var property = (!this.complete||(this.complete === "false")) ? "payload" : this.complete + "";
+				$("#node-input-typed-complete").typedInput('type','msg');
+				$("#node-input-typed-complete").typedInput('value',property);
+			}
+			$("#node-input-typed-complete").on('change',function()
+			{
+				if ($("#node-input-typed-complete").typedInput('type') === 'msg' && $("#node-input-typed-complete").typedInput('value') === '')
+				{
+					$("#node-input-typed-complete").typedInput('value','payload');
+				}
+			});
+		},
+		oneditsave: function()
+		{
+			var type = $("#node-input-typed-complete").typedInput('type');
+			if (type === 'full')
+			{
+				$("#node-input-complete").val("true");
+			}
+			else
+			{
+				$("#node-input-complete").val($("#node-input-typed-complete").typedInput('value'));
+			}
+		}
+	});
+</script>

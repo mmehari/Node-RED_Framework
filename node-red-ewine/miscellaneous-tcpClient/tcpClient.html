@@ -1,0 +1,65 @@
+<!--
+  Copyright 2013, 2016 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="tcpClient">
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-input-name" placeholder="name">
+	</div>
+	<div class="form-row">
+		<label for="node-input-host">Address</label>
+		<input type="text" id="node-input-host" placeholder="host" style="width: 60%;" data-i18n="[placeholder]common.label.host">
+	</div>
+	<div class="form-row">
+		<label for="node-input-port">Port</label>
+		<input type="text" id="node-input-port" placeholder="port" style="width: 65px;" data-i18n="[placeholder]common.label.port">
+	</div>
+	<div class="form-row">
+		<label for="node-input-timeout">Timeout</label>
+		<input type="text" id="node-input-timeout" placeholder="timeout (msec)" style="width: 120px;" data-i18n="[placeholder]common.label.timeout">
+	</div>
+	<div class="form-row">
+		<label for="node-input-client_disconnects">Client disconnects</label>
+		<input type="checkbox" id="node-input-client_disconnects" placeholder="client_disconnects" style="width: 65px;" data-i18n="[placeholder]common.label.client_disconnects">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="tcpClient">
+    <p><b>tcpClient</b> is an application used to send a TCP request message to a server on a given <code>Address</code> at a given <code>Port</code>. Moreover, it also gives the option whether or not the client triggers a disconnection procedure to the server. If not, the server should make the disconnection.</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('tcpClient',
+	{
+		category: 'miscellaneous',
+		color:"Silver",
+		defaults:
+		{
+			name: {value:""},
+			host: {value:"", validate: function(v) { return v.length > 0;} },
+			port: {value:"", validate:RED.validators.number()},
+			timeout: {value:"10000", required:true, validate:RED.validators.number()},
+			client_disconnects: {required:true }
+		},
+		inputs:1,
+		outputs:2,
+		icon: "bridge-dash.png",
+		label: function()
+		{
+			return this.name || (this.host ? this.host : "") + (this.port ? ":" + this.port : "");
+		}	
+	});
+</script>
