@@ -15,12 +15,13 @@ The Node-RED modules built are used for intelligent wireless experimentation and
 
 ### Reasoning Modules
 [analysis](node-red-ewine/reasoning-analysis): statistical analysis reasoning block  
-[model-creation](node-red-ewine/reasoning-model-creation): builds an accurate surrogate model of a black box system  
-[optimization](node-red-ewine/reasoning-optimization): optimizes a black box system using surrogate models
+[model-creation](node-red-ewine/reasoning-model-creation): builds an accurate surrogate model of a black box system using FLOLA-Voronoi sampling strategy  
+[optimization](node-red-ewine/reasoning-optimization): optimizes a black box system using surrogate models and Probability of Improvement (PoI) sampling strategy
 
 ### Miscellaneous Modules
 [Cooja](node-red-ewine/miscellaneous-cooja): starts a cooja network simulator from [contiki](http://www.contiki-os.org/)  
 [js2xml](node-red-ewine/miscellaneous-js2xml): renders json string into xml format  
+[MATLABd](node-red-ewine/miscellaneous-MATLABd): creates a MATLAB daemon [program](https://github.com/mmehari/SUMO_optimization)  
 [Mfile](node-red-ewine/miscellaneous-Mfile): Writes/Reads multiple messages to/from multiple files  
 [split_WI](node-red-ewine/miscellaneous-split_WI): Split a message into multiple messages and send them with interval.  
 [tcpClient](node-red-ewine/miscellaneous-tcpClient): sends TCP request messages to a server  

@@ -19,6 +19,7 @@
          
          "miscellaneous-cooja": "miscellaneous-cooja/cooja.js",
          "miscellaneous-js2xml": "miscellaneous-js2xml/js2xml.js",
+         "miscellaneous-MATLABd": "miscellaneous-MATLABd/MATLABd.js",
          "miscellaneous-Mfile": "miscellaneous-Mfile/Mfile.js",
          "miscellaneous-tcpClient": "miscellaneous-tcpClient/tcpClient.js",
          "miscellaneous-UPI_exec": "miscellaneous-UPI_exec/UPI_exec.js",
