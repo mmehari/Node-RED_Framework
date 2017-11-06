@@ -36,10 +36,11 @@ All Node-RED flows that are described here follow similar experimentation flow. 
 
 *Figure 1. Node-RED experimentation flow*
 
-[flows_WSN](flows_WSN.json): A Wireless Sensor Network demonstrator flow  
+[flows_WSN](flows_WSN.json): A WSN demonstrator flow  
 [flows_PL](flows_PL.json): A Path Loss calculator flow  
 [flows_Wi-Fi_conf_OPT](flows_Wi-Fi_conf_OPT.flow): Wi-Fi conference optimization flow  
-[flows_DYN](flows_DYN.json): A dynamic WSN optimization flow
+[flows_DYN](flows_DYN.json): A dynamic WSN optimization flow  
+[flows_sensys2017](flows_sensys2017.json): A WSN demonstrator flow used in sensys 2017 demo/poster session
 
 
 ## Contact
