@@ -14,6 +14,8 @@
          "planning-random-search": "planning-random-search/random.js",
 
          "reasoning-analysis": "reasoning-analysis/analysis.js",
+         "reasoning-BFS-analysis": "reasoning-BFS-analysis/BFS.js",
+         "reasoning-dummy": "reasoning-dummy/dummy.js",
          "reasoning-model": "reasoning-model-creation/model.js",
          "reasoning-optimization": "reasoning-optimization/optimization.js",
          

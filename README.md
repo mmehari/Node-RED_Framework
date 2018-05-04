@@ -15,6 +15,8 @@ The Node-RED modules built are used for intelligent wireless experimentation and
 
 ### Reasoning Modules
 [analysis](node-red-ewine/reasoning-analysis): statistical analysis reasoning block  
+[BFS-analysis](node-red-ewine/reasoning-BFS-analysis): Breadth-First Search (BFS) analysis block  
+[dummy](node-red-ewine/reasoning-dummy): dummy reasoning block  
 [model-creation](node-red-ewine/reasoning-model-creation): builds an accurate surrogate model of a black box system using FLOLA-Voronoi sampling strategy  
 [optimization](node-red-ewine/reasoning-optimization): optimizes a black box system using surrogate models and Probability of Improvement (PoI) sampling strategy
 
@@ -30,7 +32,7 @@ The Node-RED modules built are used for intelligent wireless experimentation and
 
 ## Node-RED flows
 
-All Node-RED flows that are described here follow similar experimentation flow. There are three basic sub parts which are used for I) experiment setup and initialization II) intelligent experimentation and III) experiment action. Figure 1 shows the detail.
+All Node-RED flows that are described here follow similar experimentation flow. There are three basic parts which are used for i) experiment setup and initialization ii) intelligent experimentation and iii) experiment action. Figure 1 shows the detail.
 
 ![Node-RED experimentation flow](node-red_flow.png)
 
