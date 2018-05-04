@@ -43,6 +43,7 @@ All Node-RED flows that are described here follow similar experimentation flow. 
 [flows_Wi-Fi_conf_OPT](flows_Wi-Fi_conf_OPT.flow): Wi-Fi conference optimization flow  
 [flows_DYN](flows_DYN.json): A dynamic WSN optimization flow  
 [flows_sensys2017](flows_sensys2017.json): A WSN demonstrator flow used in sensys 2017 demo/poster session
+[flows_CNERT2018](flows_CNERT2018.json): A WSN demonstrator flow used in CNERT 2018 demo/poster session
 
 
 ## Contact
